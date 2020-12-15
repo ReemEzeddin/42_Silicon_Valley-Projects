@@ -10,28 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int			get_next_line(int fd, char **line)
 {
 	char			*tmp;
 	ssize_t			x;
 	char			bf[BUFFER_SIZE + 1];
-	static char		*newline = NULL;
+	static char		*newline[MAX_FDS];
 
 	x = 1;
 	if (!line || fd < 0 || BUFFER_SIZE <= 0 || read(fd, bf, 0) == -1)
 		return (-1);
-	if (newline == NULL)
-		newline = ft_memalloc(1);
-	while (!ft_strchr(newline, '\n') && (x = read(fd, bf, BUFFER_SIZE)) > 0)
+	if (newline[fd] == NULL)
+		newline[fd] = ft_memalloc(1);
+	while (!ft_strchr(newline[fd], '\n') && (x = read(fd, bf, BUFFER_SIZE)) > 0)
 	{
 		bf[x] = '\0';
-		tmp = ft_strjoin(newline, bf);
-		ft_del(newline);
-		newline = tmp;
+		tmp = ft_strjoin(newline[fd], bf);
+		ft_del(newline[fd]);
+		newline[fd] = tmp;
 	}
-	return (get_result(x, &newline, &tmp, line));
+	return (get_result(x, &newline[fd], &tmp, line));
 }
 
 int			get_result(ssize_t x, char **newline, char **tmp, char **line)
