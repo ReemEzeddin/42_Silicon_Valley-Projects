@@ -31,10 +31,10 @@ int			get_next_line(int fd, char **line)
 		ft_del(newline[fd]);
 		newline[fd] = tmp;
 	}
-	return (get_result(x, &newline[fd], &tmp, line));
+	return (get_result(x, &newline[fd], tmp, line));
 }
 
-int			get_result(ssize_t x, char **newline, char **tmp, char **line)
+int			get_result(ssize_t x, char **newline, char *tmp, char **line)
 {
 	int size;
 
@@ -48,9 +48,9 @@ int			get_result(ssize_t x, char **newline, char **tmp, char **line)
 	size = ft_strlen(*line);
 	if (x > 0)
 		size++;
-	*tmp = ft_strdup(*newline + size);
+	tmp = ft_strdup(*newline + size);
 	ft_del(*newline);
-	*newline = *tmp;
+	*newline = tmp;
 	if (x == 0)
 		return (0 * ft_del(*newline));
 	return (1);
