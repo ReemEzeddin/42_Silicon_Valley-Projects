@@ -28,33 +28,34 @@ int			get_next_line(int fd, char **line)
 	{
 		bf[x] = '\0';
 		tmp = ft_strjoin(newline[fd], bf);
-		ft_del(newline[fd]);
+		ft_del(&newline[fd]);
 		newline[fd] = tmp;
 	}
-	return (get_result(x, &newline[fd], tmp, line));
+	if (x == 0)
+		*line = ft_strdup(newline[fd]);
+	else if (x > 0)
+		*line = ft_substr(newline[fd], 0, (ft_strchr(newline[fd], '\n') - newline[fd]));
+	else
+		return (-1);
+	return (get_result(x, newline, tmp, line, fd));
 }
 
-int			get_result(ssize_t x, char **newline, char *tmp, char **line)
+int			get_result(ssize_t x, char **newline, char *tmp, char **line, int fd)
 {
 	int size;
 
 	size = 0;
-	if (x == 0)
-		*line = ft_strdup(*newline);
-	else if (x > 0)
-		*line = ft_substr(*newline, 0, (ft_strchr(*newline, '\n') - *newline));
-	else
-		return (-1);
 	size = ft_strlen(*line);
 	if (x > 0)
 		size++;
-	tmp = ft_strdup(*newline + size);
-	ft_del(*newline);
-	*newline = tmp;
+	tmp = ft_strdup(newline[fd] + size);
+	ft_del(&newline[fd]);
+	newline[fd] = tmp;
 	if (x == 0)
-		return (0 * ft_del(*newline));
+		return (0 * ft_del(&newline[fd]));
 	return (1);
 }
+
 
 size_t		ft_strlen(const char *s)
 {
@@ -93,12 +94,12 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	return (ptr);
 }
 
-int			ft_del(char *ptr)
+int			ft_del(char **ptr)
 {
 	if (*ptr)
 	{
-		free(ptr);
-		ptr = NULL;
+		free(*ptr);
+		*ptr = NULL;
 		return (1);
 	}
 	return (0);

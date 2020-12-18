@@ -29,7 +29,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *str);
 char	*ft_strnew(size_t size);
-int		ft_del(char *str);
-int		get_result(ssize_t x, char **newline, char *tmp, char **line);
+int		ft_del(char **str);
+int		get_result(ssize_t x, char **newline, char *tmp, char **line, int fd);
 
 #endif
