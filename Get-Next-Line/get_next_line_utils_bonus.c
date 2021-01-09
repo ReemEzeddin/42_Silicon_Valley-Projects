@@ -1,93 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: reezeddi <marvin@42.f>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/13 17:25:58 by root              #+#    #+#             */
-/*   Updated: 2020/12/15 10:54:13 by reezeddi         ###   ########.fr       */
+/*   Created: 2020/12/24 13:28:17 by reezeddi          #+#    #+#             */
+/*   Updated: 2020/12/24 13:35:43 by reezeddi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-void	*ft_memalloc(size_t size)
-{
-	void	*buf;
-
-	if (!(buf = (void *)malloc(size)))
-		return (NULL);
-	ft_memset(buf, 0, size);
-	return (buf);
-}
-
-void	*ft_memset(void *b, int c, size_t len)
-{
-	size_t i;
-
-	i = 0;
-	while (i < len)
-	{
-		((char *)b)[i] = (unsigned char)c;
-		i++;
-	}
-	return (b);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	*ft_memset(void *str, int c, size_t n)
 {
 	size_t	i;
-	char	*ptr;
 
 	i = 0;
-	if (!s || (long int)len < 0)
+	while (n > i)
+		((char *)str)[i++] = (unsigned char)c;
+	return (str);
+}
+
+void	*ft_memalloc(size_t size)
+{
+	void *ptr;
+
+	if (!(ptr = (void *)malloc(size)))
 		return (NULL);
-	ptr = (char *)malloc(len + 1);
-	if (ptr == NULL)
-		return (NULL);
-	while (start < ft_strlen(s) && i < len)
-	{
-		ptr[i] = s[start];
-		i++;
-		start++;
-	}
-	ptr[i] = '\0';
+	ft_memset(ptr, 0, size);
 	return (ptr);
 }
 
-char	*ft_strchr(const char *s, int c)
+int		ft_del(char **ptr)
 {
-	if (s)
+	if (*ptr)
 	{
-		while (*s)
-		{
-			if (*s == (unsigned char)c)
-				return ((char *)s);
-			s++;
-		}
-		if (*s == (unsigned char)c)
-			return ((char *)s);
+		free(*ptr);
+		*ptr = NULL;
+		return (1);
 	}
-	return (NULL);
+	return (0);
 }
 
-char	*ft_strdup(const char *s1)
+size_t	ft_strlen(const char *s)
 {
-	int		i;
-	char	*dest;
+	size_t	len;
 
-	i = 0;
-	while (s1[i])
-		i++;
-	if (!(dest = malloc(i + 1)))
-		return (NULL);
-	i = 0;
-	while (s1[i])
+	len = 0;
+	while (*s++ != '\0')
 	{
-		dest[i] = s1[i];
-		i++;
+		len++;
 	}
-	dest[i] = '\0';
-	return (dest);
+	return (len);
 }

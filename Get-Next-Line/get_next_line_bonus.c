@@ -1,106 +1,111 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reezeddi <marvin@42.f>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/13 15:40:18 by reezeddi          #+#    #+#             */
-/*   Updated: 2020/12/15 10:52:22 by reezeddi         ###   ########.fr       */
+/*   Created: 2020/12/24 13:28:03 by reezeddi          #+#    #+#             */
+/*   Updated: 2020/12/24 13:28:09 by reezeddi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-int			get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
-	char			*tmp;
-	ssize_t			x;
-	char			bf[BUFFER_SIZE + 1];
-	static char		*newline[MAX_FDS];
+	ssize_t		x;
+	char		bf[BUFFER_SIZE + (x = 1)];
+	static char	*new[FD_MAX];
+	char		*tmp;
 
-	x = 1;
-	if (!line || fd < 0 || BUFFER_SIZE <= 0 || read(fd, bf, 0) == -1)
+	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
-	if (newline[fd] == NULL)
-		newline[fd] = ft_memalloc(1);
-	while (!ft_strchr(newline[fd], '\n') && (x = read(fd, bf, BUFFER_SIZE)) > 0)
+	new[fd] == NULL ? new[fd] = ft_memalloc(1) : NULL;
+	while (!ft_strchr(new[fd], '\n') && (x = read(fd, bf, BUFFER_SIZE)) > 0)
 	{
 		bf[x] = '\0';
-		tmp = ft_strjoin(newline[fd], bf);
-		ft_del(&newline[fd]);
-		newline[fd] = tmp;
+		tmp = ft_strjoin(new[fd], bf);
+		ft_del(&new[fd]);
+		new[fd] = tmp;
 	}
 	if (x == 0)
-		*line = ft_strdup(newline[fd]);
+		*line = ft_strdup(new[fd]);
 	else if (x > 0)
-		*line = ft_substr(newline[fd], 0, (ft_strchr(newline[fd], '\n') - newline[fd]));
+		*line = ft_substr(new[fd], 0, (ft_strchr(new[fd], '\n') - new[fd]));
 	else
 		return (-1);
-	return (get_result(x, newline, tmp, line, fd));
+	tmp = ft_strdup(new[fd] + (ft_strlen(*line) + ((x > 0) ? +1 : +0)));
+	ft_del(&new[fd]);
+	new[fd] = tmp;
+	return (x == 0 ? 0 * ft_del(&new[fd]) : 1);
 }
 
-int			get_result(ssize_t x, char **newline, char *tmp, char **line, int fd)
+char	*ft_strdup(const char *src)
 {
-	int size;
-
-	size = 0;
-	size = ft_strlen(*line);
-	if (x > 0)
-		size++;
-	tmp = ft_strdup(newline[fd] + size);
-	ft_del(&newline[fd]);
-	newline[fd] = tmp;
-	if (x == 0)
-		return (0 * ft_del(&newline[fd]));
-	return (1);
-}
-
-
-size_t		ft_strlen(const char *s)
-{
-	size_t i;
-
-	i = 0;
-	if (s)
-		while (s[i])
-			++i;
-	return (i);
-}
-
-char		*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*ptr;
+	char	*new;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
-	if (s1 == NULL || s2 == NULL || !(ptr = (char *)malloc(ft_strlen(s1)
-		+ ft_strlen(s2) + 1)))
+	while (src[i])
+		i++;
+	new = malloc(sizeof(char) * (i + 1));
+	if (!new)
 		return (NULL);
-	while (s1[i] != '\0')
+	i = 0;
+	while (src[i])
 	{
-		ptr[i] = s1[i];
+		new[i] = src[i];
 		i++;
 	}
-	while (s2[j] != '\0')
-	{
-		ptr[i] = s2[j];
-		i++;
-		j++;
-	}
-	ptr[i] = '\0';
-	return (ptr);
+	new[i] = '\0';
+	return (new);
 }
 
-int			ft_del(char **ptr)
+char	*ft_strchr(const char *s, int c)
 {
-	if (*ptr)
+	while (*s != (char)c)
+		if (!*s++)
+			return (NULL);
+	return (char *)s;
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*str;
+	int		size;
+	int		len1;
+	int		len2;
+
+	if (!s1 || !s2)
+		return (NULL);
+	len1 = ft_strlen((char *)s1);
+	len2 = ft_strlen((char *)s2);
+	size = len1 + len2;
+	if (!(str = malloc(sizeof(char) * (size + 1))))
+		return (NULL);
+	len2++;
+	while (len2-- > 0)
+		str[size--] = s2[len2];
+	while (len1-- > 0)
+		str[size--] = s1[len1];
+	return (str);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*sub;
+
+	sub = malloc(sizeof(char) * (len + 1));
+	if (!sub || !s)
+		return (NULL);
+	if (start >= ft_strlen(s))
+		ft_memset(sub, 0, len + 1);
+	else
 	{
-		free(*ptr);
-		*ptr = NULL;
-		return (1);
+		sub[len] = '\0';
+		while (len-- > 0)
+			sub[len] = s[len + start];
 	}
-	return (0);
+	return (sub);
 }
