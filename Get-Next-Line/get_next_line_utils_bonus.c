@@ -6,51 +6,57 @@
 /*   By: reezeddi <marvin@42.f>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 13:28:17 by reezeddi          #+#    #+#             */
-/*   Updated: 2020/12/24 13:35:43 by reezeddi         ###   ########.fr       */
+/*   Updated: 2021/01/10 14:51:05 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-void	*ft_memset(void *str, int c, size_t n)
+void	ft_strcat(char *line, char *buf)
 {
 	size_t	i;
+	size_t	j;
 
 	i = 0;
-	while (n > i)
-		((char *)str)[i++] = (unsigned char)c;
-	return (str);
-}
-
-void	*ft_memalloc(size_t size)
-{
-	void *ptr;
-
-	if (!(ptr = (void *)malloc(size)))
-		return (NULL);
-	ft_memset(ptr, 0, size);
-	return (ptr);
-}
-
-int		ft_del(char **ptr)
-{
-	if (*ptr)
+	while (line[i])
+		i++;
+	j = 0;
+	while (buf[j] && buf[j] != '\n')
 	{
-		free(*ptr);
-		*ptr = NULL;
-		return (1);
+		line[i + j] = buf[j];
+		j++;
 	}
-	return (0);
+	line[i + j] = '\0';
 }
 
-size_t	ft_strlen(const char *s)
+int		ft_del(int res, char **line)
 {
-	size_t	len;
+	if (res == -1 && *line)
+	{
+		free(*line);
+		*line = NULL;
+	}
+	return (res);
+}
+
+int		get_line_len(char *line, char *buf)
+{
+	int len;
 
 	len = 0;
-	while (*s++ != '\0')
-	{
+	while (buf[len] && buf[len] != '\n')
 		len++;
-	}
+	if (line)
+		len += ft_strlen(line);
 	return (len);
+}
+
+int		ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }

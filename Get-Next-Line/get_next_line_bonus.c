@@ -6,7 +6,7 @@
 /*   By: reezeddi <marvin@42.f>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 13:28:03 by reezeddi          #+#    #+#             */
-/*   Updated: 2020/12/24 13:28:09 by reezeddi         ###   ########.fr       */
+/*   Updated: 2021/01/10 14:50:00 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,98 +14,76 @@
 
 int		get_next_line(int fd, char **line)
 {
-	ssize_t		x;
-	char		bf[BUFFER_SIZE + (x = 1)];
-	static char	*new[FD_MAX];
-	char		*tmp;
+	static char	buf[FD_MAX][BUFFER_SIZE + 1];
+	int			x;
 
-	if (fd < 0 || !line || BUFFER_SIZE <= 0)
+	if (line == NULL || fd < 0 || fd >= FD_MAX || BUFFER_SIZE < 1)
 		return (-1);
-	new[fd] == NULL ? new[fd] = ft_memalloc(1) : NULL;
-	while (!ft_strchr(new[fd], '\n') && (x = read(fd, bf, BUFFER_SIZE)) > 0)
+	*line = NULL;
+	if (get_line(line, buf[fd]) == -1)
+		return (ft_del(-1, line));
+	while (ft_strlen(buf[fd]) == 0)
 	{
-		bf[x] = '\0';
-		tmp = ft_strjoin(new[fd], bf);
-		ft_del(&new[fd]);
-		new[fd] = tmp;
+		x = read(fd, buf[fd], BUFFER_SIZE);
+		if (x <= 0)
+			return (ft_del(x, line));
+		if (get_line(line, buf[fd]) == -1)
+			return (ft_del(-1, line));
 	}
-	if (x == 0)
-		*line = ft_strdup(new[fd]);
-	else if (x > 0)
-		*line = ft_substr(new[fd], 0, (ft_strchr(new[fd], '\n') - new[fd]));
-	else
-		return (-1);
-	tmp = ft_strdup(new[fd] + (ft_strlen(*line) + ((x > 0) ? +1 : +0)));
-	ft_del(&new[fd]);
-	new[fd] = tmp;
-	return (x == 0 ? 0 * ft_del(&new[fd]) : 1);
+	next_line(buf[fd], 1);
+	return (1);
 }
 
-char	*ft_strdup(const char *src)
+int		get_line(char **line, char *buf)
 {
-	char	*new;
+	*line = (char *)realloc_line(*line, buf);
+	if (*line == NULL)
+		return (-1);
+	ft_strcat(*line, buf);
+	next_line(buf, 0);
+	return (1);
+}
+
+char	*realloc_line(char *line, char *buf)
+{
+	char	*new_line;
+	int		len;
 	int		i;
 
-	i = 0;
-	while (src[i])
-		i++;
-	new = malloc(sizeof(char) * (i + 1));
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (src[i])
+	len = get_line_len(line, buf);
+	new_line = (char *)malloc((len + 1) * sizeof(char));
+	if (new_line == NULL)
 	{
-		new[i] = src[i];
+		if (line)
+			free(line);
+		return (NULL);
+	}
+	i = 0;
+	while (line && line[i])
+	{
+		new_line[i] = line[i];
 		i++;
 	}
-	new[i] = '\0';
-	return (new);
+	while (i < (len + 1))
+		new_line[i++] = '\0';
+	if (line)
+		free(line);
+	return (new_line);
 }
 
-char	*ft_strchr(const char *s, int c)
+void	next_line(char buf[BUFFER_SIZE + 1], int with_new_line)
 {
-	while (*s != (char)c)
-		if (!*s++)
-			return (NULL);
-	return (char *)s;
-}
+	ssize_t	i;
+	ssize_t j;
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*str;
-	int		size;
-	int		len1;
-	int		len2;
-
-	if (!s1 || !s2)
-		return (NULL);
-	len1 = ft_strlen((char *)s1);
-	len2 = ft_strlen((char *)s2);
-	size = len1 + len2;
-	if (!(str = malloc(sizeof(char) * (size + 1))))
-		return (NULL);
-	len2++;
-	while (len2-- > 0)
-		str[size--] = s2[len2];
-	while (len1-- > 0)
-		str[size--] = s1[len1];
-	return (str);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*sub;
-
-	sub = malloc(sizeof(char) * (len + 1));
-	if (!sub || !s)
-		return (NULL);
-	if (start >= ft_strlen(s))
-		ft_memset(sub, 0, len + 1);
-	else
-	{
-		sub[len] = '\0';
-		while (len-- > 0)
-			sub[len] = s[len + start];
-	}
-	return (sub);
+	i = 0;
+	j = 0;
+	while (buf[i] && buf[i] != '\n')
+		i++;
+	if (with_new_line)
+		i++;
+	while (buf[i])
+		buf[j++] = buf[i++];
+	while (buf[j])
+		buf[j++] = '\0';
 }

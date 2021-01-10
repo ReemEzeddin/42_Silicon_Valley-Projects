@@ -6,7 +6,7 @@
 /*   By: reezeddi <marvin@42.f>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 13:27:21 by reezeddi          #+#    #+#             */
-/*   Updated: 2020/12/24 13:27:27 by reezeddi         ###   ########.fr       */
+/*   Updated: 2021/01/10 14:48:51 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,29 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
+
+# ifdef BUFFER_SIZE
+#  if BUFFER_SIZE < 0
+#   undef BUFFER_SIZE
+#   define BUFFER_SIZE 0
+#  endif
+# endif
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
 
+# ifndef FD_MAX
+#  define FD_MAX 1024
+# endif
+
 int		get_next_line(int fd, char **line);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strdup(const char *s1);
+void	next_line(char buf[BUFFER_SIZE + 1], int should_shift_newline);
+char	*realloc_line(char *line, char *buf);
+int		get_line(char **line, char *buf);
 
-/*
-** --- UTILS ---
-*/
-
-size_t	ft_strlen(const char *str);
-void	*ft_memalloc(size_t size);
-void	*ft_memset(void *b, int c, size_t len);
-int		ft_del(char *str);
-
+int		ft_del(int res, char **line);
+int		ft_strlen(const char *s);
+int		get_line_len(char *line, char *buf);
+void	ft_strcat(char *line, char *buf);
 #endif
