@@ -6,12 +6,11 @@
 /*   By: reezeddi <marvin@42.f>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 13:26:47 by reezeddi          #+#    #+#             */
-/*   Updated: 2021/01/10 14:48:09 by root             ###   ########.fr       */
+/*   Updated: 2021/01/10 15:02:41 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 int		get_next_line(int fd, char **line)
 {
