@@ -6,7 +6,7 @@
 /*   By: reezeddi <marvin@42.f>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:07:12 by reezeddi          #+#    #+#             */
-/*   Updated: 2021/02/03 20:51:22 by reezeddi         ###   ########.fr       */
+/*   Updated: 2021/02/04 14:46:44 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ size_t		ft_strlen(const char *str);
 char		*ft_strchr(const char *str, int c);
 char		*ft_strdup(const char *str);
 char		*ft_strndup(const char *src, size_t n);
+size_t      ft_strnlen(const char *s, size_t maxlen);
 char		*ft_strndupfre(const char *src, size_t n, int free_src);
 char		*ft_strdup_range(const char *str, int index, int end);
 char		*ft_strjoin(char const *s1, char const *s2);

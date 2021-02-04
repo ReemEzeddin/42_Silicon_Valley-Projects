@@ -63,6 +63,7 @@ SOURCES     =    ft_intmaxlen_base.c                                          \
                  ft_strlen.c                                                  \
                  ft_strlstrip.c                                               \
                  ft_strndup.c                                                 \
+                 ft_strnlen.c                                                 \
 		 ft_strprepend.c                                              \
                  ft_strrstrip.c                                               \
                  ft_uintmaxlen_base.c                                         \
