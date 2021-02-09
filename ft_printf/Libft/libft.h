@@ -109,9 +109,11 @@ typedef union			u_data
 */
 
 void		*ft_malloc(size_t size, char c);
+int			ft_atoi(const char *str);
 void		*ft_memset(void *dst, int c, size_t n);
 void		*ft_memalloc(size_t size);
 int			valid_base(char *base_str);
+char		*ft_padding(int size, char c);
 size_t		ft_intmaxlen_base(intmax_t n, unsigned int base);
 size_t		ft_uintmaxlen_base(uintmax_t n, unsigned int base);
 char		*ft_itoa(int n);
@@ -133,6 +135,7 @@ char		*ft_strappend(char const *s1, char const *s2,
 char		*ft_strprepend(char const *s1, char const *s2,
 		int free_s1, int free_s2);
 char		*ft_strrstrip(char const *s, char *charset);
+char		**ft_strsplit(char const *s, char c);
 char		*ft_strlstrip(char const *s, char *charset);
 int			ft_ischarset(int c, const char *seperators);
 int			ft_isdigit(int c);

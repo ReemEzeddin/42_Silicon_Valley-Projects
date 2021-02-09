@@ -6,7 +6,7 @@
 /*   By: reezeddi <marvin@42.f>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:12:14 by reezeddi          #+#    #+#             */
-/*   Updated: 2021/02/03 20:12:19 by reezeddi         ###   ########.fr       */
+/*   Updated: 2021/02/08 19:41:02 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ char			*x_handler(t_format format, t_data arg)
 	intmax_t	temp;
 	char		*intstr;
 
-	if (format.length < L && format.length != NONE)
+	if (format.length < L && format.length != -1)
 		temp = (format.length == HH) ? arg.uchar_ : arg.ushort_;
 	else
-		temp = (format.length == NONE) ? arg.uint_ : arg.uintmax_;
+		temp = (format.length == -1) ? arg.uint_ : arg.uintmax_;
 	intstr = ft_strdup("");
 	if (!(format.precision == 0 && temp == 0))
 	{

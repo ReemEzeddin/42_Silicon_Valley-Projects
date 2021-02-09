@@ -65,13 +65,14 @@ SOURCES     =    ft_intmaxlen_base.c                                          \
                  ft_strndup.c                                                 \
                  ft_strnlen.c                                                 \
 		 ft_strprepend.c                                              \
+                 ft_strsplit.c                                                \
                  ft_strrstrip.c                                               \
                  ft_uintmaxlen_base.c                                         \
                  ft_utoa_base.c                                               \
                  ft_isdigit.c                                                 \
                  ft_islower.c                                                 \
                  ft_isspace.c                                                 \
-                 ft_ft_memalloc.c                                             \
+                 ft_memalloc.c                                                \
                  ft_isupper.c                                                 \
                  valid_base.c                                                 \
 

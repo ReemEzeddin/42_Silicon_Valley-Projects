@@ -6,7 +6,7 @@
 /*   By: reezeddi <marvin@42.f>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:11:54 by reezeddi          #+#    #+#             */
-/*   Updated: 2021/02/03 20:11:59 by reezeddi         ###   ########.fr       */
+/*   Updated: 2021/02/08 19:39:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char			*u_handler(t_format format, t_data arg)
 	uintmax_t	temp;
 	char		*intstr;
 
-	temp = (format.length < L && format.length != NONE) ?
+	temp = (format.length < L && format.length != -1) ?
 		arg.uint_ :
 		arg.uintmax_;
 	intstr = ft_strdup("");
