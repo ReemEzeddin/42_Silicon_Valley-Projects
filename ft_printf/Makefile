@@ -62,6 +62,8 @@ PLUGINS     =   Handlers/c_handler.c                                          \
 
 OBJECTS     =   $(SOURCES:.c=.o)
 
+LIB			=	ar -rcs
+
 # Main — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 
 all: $(NAME)
