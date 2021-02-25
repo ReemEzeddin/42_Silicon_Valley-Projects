@@ -1,39 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   valid_base.c                                       :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reezeddi <marvin@42.f>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/03 20:07:51 by reezeddi          #+#    #+#             */
-/*   Updated: 2021/02/25 12:33:33 by reezeddi         ###   ########.fr       */
+/*   Created: 2021/02/25 12:21:40 by reezeddi          #+#    #+#             */
+/*   Updated: 2021/02/25 12:37:47 by reezeddi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			valid_base(char *base_str)
+int	ft_isprint(char c)
 {
-	short	i;
-	short	j;
-	short	count;
-
-	if (!base_str || !base_str[0] || !base_str[1])
-		return (0);
-	i = -1;
-	while (base_str[++i])
-	{
-		count = 0;
-		if (!ft_isprint(base_str[i]))
-			return (0);
-		if (base_str[i] == '+' || base_str[i] == '-')
-			return (0);
-		j = -1;
-		while (base_str[++j])
-			if (base_str[i] == base_str[j])
-				count++;
-		if (count > 1)
-			return (0);
-	}
-	return (1);
+	return (c >= 32 && c <= 126);
 }

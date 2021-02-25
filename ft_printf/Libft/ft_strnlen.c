@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnlen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: reezeddi <marvin@42.f>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/04 14:45:38 by root              #+#    #+#             */
-/*   Updated: 2021/02/04 14:45:52 by root             ###   ########.fr       */
+/*   Created: 2021/02/25 14:00:28 by reezeddi          #+#    #+#             */
+/*   Updated: 2021/02/25 14:00:46 by reezeddi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_strnlen(const char *s, size_t maxlen)
+size_t	ft_strnlen(const char *s, size_t maxlen)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < maxlen && s[i])

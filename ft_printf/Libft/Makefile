@@ -6,7 +6,7 @@
 #    By: reezeddi <marvin@42.f>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 19:47:40 by reezeddi          #+#    #+#              #
-#    Updated: 2021/02/03 19:47:51 by reezeddi         ###   ########.fr        #
+#    Updated: 2021/02/25 12:32:55 by reezeddi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,12 +64,13 @@ SOURCES     =    ft_intmaxlen_base.c                                          \
                  ft_strlstrip.c                                               \
                  ft_strndup.c                                                 \
                  ft_strnlen.c                                                 \
-		 ft_strprepend.c                                              \
+	         	 ft_strprepend.c                                              \
                  ft_strsplit.c                                                \
                  ft_strrstrip.c                                               \
                  ft_uintmaxlen_base.c                                         \
                  ft_utoa_base.c                                               \
                  ft_isdigit.c                                                 \
+                 ft_isprint.c                                                 \
                  ft_islower.c                                                 \
                  ft_isspace.c                                                 \
                  ft_memalloc.c                                                \
