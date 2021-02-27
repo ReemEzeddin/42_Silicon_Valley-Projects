@@ -64,7 +64,7 @@ SOURCES     =    ft_intmaxlen_base.c                                          \
                  ft_strlstrip.c                                               \
                  ft_strndup.c                                                 \
                  ft_strnlen.c                                                 \
-	         	 ft_strprepend.c                                              \
+	         ft_strprepend.c                                              \
                  ft_strsplit.c                                                \
                  ft_strrstrip.c                                               \
                  ft_uintmaxlen_base.c                                         \
@@ -76,7 +76,7 @@ SOURCES     =    ft_intmaxlen_base.c                                          \
                  ft_memalloc.c                                                \
                  ft_isupper.c                                                 \
                  valid_base.c                                                 \
-
+                 ft_padding.c                                                 \
 # Main — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 
 all: $(NAME)

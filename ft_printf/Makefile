@@ -43,7 +43,7 @@ HEADERS     =   ft_printf.h
 SOURCES     =   parser.c                                                      \
                 formatter.c                                                   \
                 ft_printf.c                                                   \
-                                                                              \
+                printing.c                                                    \
                 $(PLUGINS)                                                    \
 
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —

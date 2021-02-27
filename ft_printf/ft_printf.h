@@ -78,13 +78,7 @@ enum	e_lengths
 */
 
 int				ft_printf(const char *format, ...);
-int				ft_dprintf(int filedes, const char *format, ...);
-int				ft_sprintf(char *str, const char *format, ...);
-int				ft_asprintf(char **ret, const char *format, ...);
-int				ft_vprintf(const char *format, va_list *args);
 int				printing(const char *format, va_list *args);
-int				ft_vsprintf(char *str, const char *format, va_list *args);
-int				ft_vasprintf(char **ret, const char *format, va_list *args);
 
 /*
 ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
@@ -113,16 +107,11 @@ char			*c_handler(t_format format, t_data arg);
 char			*i_handler(t_format format, t_data arg);
 char			*d_handler(t_format format, t_data arg);
 char			*u_handler(t_format format, t_data arg);
-char			*f_handler(t_format format, t_data arg);
-char			*o_handler(t_format format, t_data arg);
 char			*x_handler(t_format format, t_data arg);
 char			*xx_handler(t_format format, t_data arg);
-char			*b_handler(t_format format, t_data arg);
 char			*s_handler(t_format format, t_data arg);
-char			*r_handler(t_format format, t_data arg);
 char			*p_handler(t_format format, t_data arg);
-char			*mod_handler(t_format format, t_data arg);
-char			*style_handler(t_format format, char *fstr);
+char			*mod_handler(t_format format, t_data arg);;
 
 /*
 ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **

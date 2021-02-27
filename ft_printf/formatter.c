@@ -26,14 +26,10 @@ t_handler g_table[] =
 	{ 'c', &c_handler },
 	{ 'i', &i_handler },
 	{ 'u', &u_handler },
-	{ 'f', &f_handler },
-	{ 'b', &b_handler },
-	{ 'o', &o_handler },
 	{ 'd', &d_handler },
 	{ 'x', &x_handler },
 	{ 'X', &xx_handler },
 	{ 's', &s_handler },
-	{ 'r', &r_handler },
 	{ 'p', &p_handler },
 	{ '\0', NULL }
 };
@@ -108,7 +104,6 @@ t_data			extract_argument(t_format format, va_list *args)
 
 char			*formatter(const char **format, va_list *args, size_t *len)
 {
-	int32_t		i;
 	t_data		arg;
 	t_format	info;
 	char		*fstr;
@@ -121,13 +116,6 @@ char			*formatter(const char **format, va_list *args, size_t *len)
 	{
 		if (info.specifier != '%')
 			arg = extract_argument(info, args);
-		i = -1;
-		while (g_table[++i].specifier != '\0')
-			if (info.specifier == g_table[i].specifier)
-			{
-				fstr = style_handler(info, g_table[i].handler(info, arg));
-				break ;
-			}
 	}
 	(*format) += info.format_length + 1;
 	(*len) = (info.specifier == 'c' && arg.char_ == 0) ?
