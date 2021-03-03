@@ -94,6 +94,8 @@ fclean: clean
 
 re: fclean all
 
+bonus: re
+
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 
 .PHONY: all clean fclean re

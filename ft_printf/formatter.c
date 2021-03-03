@@ -104,6 +104,7 @@ t_data			extract_argument(t_format format, va_list *args)
 
 char			*formatter(const char **format, va_list *args, size_t *len)
 {
+	int32_t		i;
 	t_data		arg;
 	t_format	info;
 	char		*fstr;
@@ -116,6 +117,13 @@ char			*formatter(const char **format, va_list *args, size_t *len)
 	{
 		if (info.specifier != '%')
 			arg = extract_argument(info, args);
+		i = -1;
+		while (g_table[++i].specifier != '\0')
+			if (info.specifier == g_table[i].specifier)
+			{
+				fstr = g_table[i].handler(info, arg);
+				break ;
+			}
 	}
 	(*format) += info.format_length + 1;
 	(*len) = (info.specifier == 'c' && arg.char_ == 0) ?
